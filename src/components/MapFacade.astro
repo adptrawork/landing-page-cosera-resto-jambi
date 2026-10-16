@@ -1,0 +1,12 @@
+---
+// Ref: Awwwards GEM maps integration — FACADE: preview + tombol, iframe disuntik hanya saat diklik.
+import { business } from '../data/business';
+---
+<div class="mapfacade rounded-2xl overflow-hidden border border-green-800/15 bg-green-800/5" data-embed={business.mapsEmbed} data-title={`Peta ${business.name}`}>
+  <div class="aspect-[4/3] flex flex-col items-center justify-center gap-3 p-6 text-center">
+    <p class="font-editorial font-bold text-xl">Peta dimuat sesuai permintaan</p>
+    <p class="text-sm text-stone-500 max-w-[40ch]">{business.address}</p>
+    <button type="button" data-loadmap class="bg-green-800 text-green-50 px-6 py-3 min-h-[48px] rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Muat peta interaktif</button>
+    <a href={business.mapsUrl} target="_blank" rel="noopener" class="text-sm underline underline-offset-4 decoration-green-800">Buka di Google Maps</a>
+  </div>
+</div>

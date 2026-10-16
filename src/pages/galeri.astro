@@ -2,32 +2,34 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { business } from '../data/business';
 const shots = [
-  { f: 'cosera-steak.jpg', w: 1000, h: 667, alt: 'Tenderloin steak juicy di atas hot plate', cap: ' primadona GoFood — steak tenderloin yang bikin repeat order.' },
-  { f: 'cosera-soto.jpg', w: 1000, h: 750, alt: 'Mangkuk soto ayam bening dengan suwiran ayam', cap: 'sarapan jam tujuh — soto bening untuk mengawali hari.' },
-  { f: 'cosera-carbonara.jpg', w: 1000, h: 562, alt: 'Spaghetti carbonara creamy dengan taburan keju', cap: 'favorit anak muda — carbonara creamy untuk makan malam.' },
-  { f: 'cosera-nasgor.jpg', w: 1000, h: 689, alt: 'Nasi goreng kampung dengan telur dan kerupuk', cap: 'aman untuk semua — nasi goreng kampung porsi keluarga.' },
-  { f: 'cosera-kopsus.jpg', w: 1000, h: 1301, alt: 'Es kopi susu kekinian dalam gelas plastik', cap: 'teman begadang santai — kopi susu signature.' },
-  { f: 'cosera-matcha.jpg', w: 1000, h: 1000, alt: 'Matcha latte dengan latte art di cangkir', cap: 'penutup manis — matcha latte sore hari.' },
+  { f: 'cosera-steak.jpg', w: 1000, h: 667, alt: 'Tenderloin steak juicy di atas hot plate', cap: 'Primadona GoFood — steak tenderloin yang bikin repeat order.' },
+  { f: 'cosera-soto.jpg', w: 1000, h: 750, alt: 'Mangkuk soto ayam bening dengan suwiran ayam', cap: 'Sarapan jam tujuh — soto bening untuk mengawali hari.' },
+  { f: 'cosera-carbonara.jpg', w: 1000, h: 562, alt: 'Spaghetti carbonara creamy dengan taburan keju', cap: 'Favorit anak muda — carbonara creamy untuk makan malam.' },
+  { f: 'cosera-nasgor.jpg', w: 1000, h: 689, alt: 'Nasi goreng kampung dengan telur dan kerupuk', cap: 'Aman untuk semua — nasi goreng kampung porsi keluarga.' },
+  { f: 'cosera-kopsus.jpg', w: 1000, h: 1301, alt: 'Es kopi susu kekinian dalam gelas plastik', cap: 'Teman nongkrong santai — kopi susu signature.' },
+  { f: 'cosera-matcha.jpg', w: 1000, h: 1000, alt: 'Matcha latte dengan latte art di cangkir', cap: 'Penutup manis — matcha latte sore hari.' },
 ];
 ---
 <BaseLayout title="Galeri CO.SERA Jambi — Etalase Menu Keluarga" description="Etalase menu CO.SERA Jambi: steak, soto ayam, carbonara, nasi goreng, kopi susu, matcha. Foto ilustrasi sejenis — lihat aslinya di @cosera.id." canonicalPath="/galeri" image="/images/cosera-carbonara.jpg">
-  <section class="max-w-6xl mx-auto px-4 pt-12 w-full">
+  <!-- Ref: galeri grid + caption; Themetags tanpa foto generik (dimensi lokal terverifikasi) -->
+  <section class="max-w-6xl mx-auto px-4 pt-12 md:pt-16 w-full">
     <p class="font-mono-num text-xs tracking-[0.18em] uppercase text-green-800">Galeri &bull; etalase</p>
     <h1 class="font-editorial mt-2 text-4xl md:text-6xl leading-[1.04] font-bold max-w-[16ch]">Etalase sebelum memesan</h1>
-    <p class="dropcap mt-4 text-base text-stone-600 max-w-[65ch]">Enam pigura, enam alasan datang. Foto di bawah ilustrasi menu sejenis berlisensi bebas — lihat versi aslinya di Instagram @cosera.id atau datang langsung ke Sipin.</p>
+    <p class="dropcap mt-4 text-base text-stone-600 max-w-[65ch]">Enam foto, enam alasan datang. Foto di bawah ilustrasi menu sejenis — lihat versi aslinya di Instagram @cosera.id atau datang langsung ke Sipin.</p>
   </section>
-  <section class="max-w-6xl mx-auto px-4 py-10 w-full">
-    <div class="rule-double pt-6 space-y-10">
+  <section class="max-w-6xl mx-auto px-4 py-10 md:py-12 w-full">
+    <div class="rule-double pt-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
       {shots.map((s, i) => (
-        <figure class:list={['reveal grid gap-5 items-center', 'md:grid-cols-12']}>
-          <img src={`/images/${s.f}`} alt={s.alt} width={s.w} height={s.h} loading="lazy" class:list={['w-full h-72 object-cover rounded-2xl border border-green-800/15', i % 2 === 0 ? 'md:col-span-7' : 'md:col-span-7 md:order-2']} />
-          <figcaption class={i % 2 === 0 ? 'md:col-span-5' : 'md:col-span-5 md:order-1 md:text-right'}>
-            <p class="font-mono-num text-sm text-green-800">Fig. {String(i + 1).padStart(2, '0')}</p>
-            <p class="font-editorial mt-1 text-xl font-bold">{s.alt}</p>
-            <p class="mt-1 text-sm text-stone-600">{s.cap}</p>
-          </figcaption>
+        <figure class="min-w-0">
+          <!-- PERF: dimensi lokal terverifikasi + decoding async -->
+          <img src={`/images/${s.f}`} alt={s.alt} width={s.w} height={s.h} decoding="async" loading={i < 2 ? 'eager' : 'lazy'} class="w-full aspect-video object-cover rounded-2xl border border-green-800/15" />
+          <figcaption class="mt-2 text-sm text-stone-500"><span class="font-mono-num text-green-800">Fig. {String(i + 1).padStart(2, '0')}</span> — {s.cap}</figcaption>
         </figure>
       ))}
+    </div>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+      <a href="/menu" class="flex-1 text-center bg-green-800 text-green-50 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">Lihat e-menu lengkap</a>
+      <a href="/kontak" class="flex-1 text-center border border-stone-300 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-green-800 hover:text-green-800 transition">Reservasi meja</a>
     </div>
   </section>
 </BaseLayout>

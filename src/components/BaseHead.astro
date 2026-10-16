@@ -41,8 +41,9 @@ if (business.phone) jsonLd.telephone = business.phoneDisplay;
 <meta property="twitter:image" content={ogImage} />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- PERF: Playfair Display max 3 varian + display=swap, tanpa @import -->
 <link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap"
   rel="stylesheet"
 />
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

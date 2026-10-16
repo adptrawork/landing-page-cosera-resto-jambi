@@ -15,40 +15,58 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <BaseHead title={title} description={description} canonicalUrl={canonicalUrl} image={image} />
 </head>
 <body class="antialiased">
+  <!-- Ref: Plerdy 2025 — info lokasi di ATAS (topbar): alamat + jam + WA -->
+  <div class="bg-green-800 text-green-50 font-mono-num text-xs">
+    <p class="max-w-6xl mx-auto px-4 py-2 truncate">Jl. Sumantri Brojonegoro No.119, Sipin &bull; Buka 07.00–22.00 &bull; WA {business.phoneDisplay}</p>
+  </div>
   <header class="sticky top-0 z-40 bg-[#f5f4ef]/90 backdrop-blur-xl border-b border-green-800/20">
-    <div class="max-w-6xl mx-auto px-4 pt-3 flex items-end justify-between gap-4">
-      <a href="/" class="leading-none pb-2">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <a href="/" class="leading-none min-w-0">
         <span class="font-editorial block font-bold text-2xl tracking-tight">CO.SERA</span>
         <span class="font-mono-num block text-[11px] text-green-800 mt-0.5">Resto &amp; Coffee &mdash; Sipin, Jambi</span>
       </a>
-      <p class="hidden md:block font-mono-num text-xs text-stone-500 pb-2">Edisi Jambi &bull; Buka 07.00&ndash;22.00</p>
-      <a href={business.ctaUrl} target="_blank" rel="noopener" class="mb-2 bg-green-800 text-green-50 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.97]" style="transition-timing-function:cubic-bezier(0.16,1,0.3,1)">{business.ctaLabel}</a>
+      <div class="flex items-center gap-2">
+        <a href={business.ctaUrl} target="_blank" rel="noopener" class="hidden sm:inline-flex items-center bg-green-800 text-green-50 px-5 py-2.5 min-h-[48px] rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">{business.ctaLabel}</a>
+        <!-- Hamburger 48px, aman 360px -->
+        <button id="burger" type="button" class="md:hidden inline-flex items-center justify-center w-12 h-12 min-w-[48px] min-h-[48px] rounded-full border border-green-800/25" aria-expanded="false" aria-controls="mnav" aria-label="Buka menu navigasi">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
     </div>
-    <nav class="border-t border-green-800/15">
+    <nav class="hidden md:block border-t border-green-800/15" aria-label="Navigasi utama">
       <div class="max-w-6xl mx-auto flex gap-6 overflow-x-auto px-4 py-2.5 text-sm text-stone-600">
         {navLinks.map((n) => (
-          <a href={n.href} class:list={['whitespace-nowrap transition hover:text-green-800', active(n.href) && 'text-green-800 font-semibold underline underline-offset-8 decoration-2']}>{n.label}</a>
+          <a href={n.href} class:list={['whitespace-nowrap transition hover:text-green-800 min-h-[48px] inline-flex items-center', active(n.href) && 'text-green-800 font-semibold underline underline-offset-8 decoration-2']}>{n.label}</a>
         ))}
+      </div>
+    </nav>
+    <nav id="mnav" class="md:hidden hidden border-t border-green-800/15" aria-label="Navigasi seluler">
+      <div class="max-w-6xl mx-auto flex flex-col px-4 py-2 text-[15px] text-stone-700">
+        {navLinks.map((n) => (
+          <a href={n.href} class="py-3 min-h-[48px] inline-flex items-center border-b border-green-800/10">{n.label}</a>
+        ))}
+        <a href={business.ctaUrl} target="_blank" rel="noopener" class="my-3 bg-green-800 text-green-50 px-5 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">{business.ctaLabel}</a>
       </div>
     </nav>
   </header>
   <main><slot /></main>
+  <!-- Ref: Plerdy 2025 — info lokasi di BAWAH (footer): alamat + jam + kontak -->
   <footer class="mt-20 border-t border-green-800/20 bg-[#ecebe3]">
-    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-12">
-      <div class="md:col-span-8">
+    <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div class="md:col-span-8 min-w-0">
         <p class="font-editorial font-bold text-xl">CO.SERA Resto &amp; Coffee</p>
         <p class="mt-2 text-base text-stone-600 leading-relaxed max-w-[65ch]">{business.address}</p>
         <p class="mt-1 font-mono-num text-sm text-green-800">{business.hours} &bull; {business.phoneDisplay}</p>
         <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
           {navLinks.map((n) => (
-            <a href={n.href} class="underline underline-offset-4 decoration-green-800/50">{n.label}</a>
+            <a href={n.href} class="underline underline-offset-4 decoration-green-800/50 min-h-[48px] inline-flex items-center">{n.label}</a>
           ))}
         </div>
       </div>
       <div class="md:col-span-4">
         <p class="font-semibold text-sm">Hubungi</p>
         <div class="mt-3 flex flex-col gap-2 text-sm">
-          <a href={business.ctaUrl} target="_blank" rel="noopener" class="underline underline-offset-4">{business.ctaLabel} &mdash; {business.phoneDisplay}</a>
+          <a href={business.ctaUrl} target="_blank" rel="noopener" class="underline underline-offset-4 min-h-[48px] inline-flex items-center">{business.ctaLabel} &mdash; {business.phoneDisplay}</a>
           <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4">Instagram &mdash; {business.instagramLabel}</a>
           <a href={business.gofood} target="_blank" rel="noopener" class="underline underline-offset-4">GoFood &mdash; pesan antar</a>
           <a href={business.mapsUrl} target="_blank" rel="noopener" class="underline underline-offset-4">Google Maps &mdash; rute ke lokasi</a>
@@ -58,18 +76,28 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
     </div>
   </footer>
   <script is:inline>
+    /* JS DIET: hanya toggle nav + maps facade (tanpa DOMContentLoaded, curtain-JS dihapus, <5KB) */
     (function () {
-      var els = document.querySelectorAll('.curtain');
-      if (!('IntersectionObserver' in window) || !els.length) {
-        els.forEach(function (el) { el.classList.add('in'); });
-        return;
-      }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-        });
-      }, { threshold: 0.25 });
-      els.forEach(function (el) { io.observe(el); });
+      var b = document.getElementById('burger');
+      var n = document.getElementById('mnav');
+      if (b && n) b.addEventListener('click', function () {
+        var open = n.classList.toggle('hidden');
+        b.setAttribute('aria-expanded', String(!open));
+        b.setAttribute('aria-label', open ? 'Buka menu navigasi' : 'Tutup menu navigasi');
+      });
+      document.addEventListener('click', function (e) {
+        var t = e.target;
+        if (!t || !t.hasAttribute || !t.hasAttribute('data-loadmap')) return;
+        var box = t.closest('[data-embed]');
+        if (!box) return;
+        var f = document.createElement('iframe');
+        f.src = box.getAttribute('data-embed');
+        f.title = box.getAttribute('data-title') || 'Peta lokasi';
+        f.loading = 'lazy';
+        f.className = 'w-full h-full';
+        box.textContent = '';
+        box.appendChild(f);
+      });
     })();
   </script>
 </body>

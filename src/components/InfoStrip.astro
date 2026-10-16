@@ -1,0 +1,29 @@
+---
+// Ref: Plerdy 2025 — info lokasi di atas + bawah, nav About/Menus/Reservations jelas, CTA Reserve/Order di tiap segmen.
+import { business } from '../data/business';
+interface Props { waHref: string; }
+const { waHref } = Astro.props;
+const cells = [
+  { label: 'Alamat', value: business.address, sub: 'Sipin — Jelutung, Kota Jambi' },
+  { label: 'Jam buka', value: business.hours, sub: 'Sarapan 07.00 — malam 22.00' },
+  { label: 'Reservasi WA', value: business.phoneDisplay, sub: 'Balas cepat jam buka' },
+];
+---
+<!-- Ref: Plerdy 2025 — info strip Alamat/Jam/WA + CTA rute, stack di mobile -->
+<section aria-label="Info kunjungan" class="max-w-6xl mx-auto px-4">
+  <div class="border border-green-800/15 rounded-2xl bg-white/50 overflow-hidden">
+    <dl class="flex flex-col md:flex-row md:divide-x divide-green-800/15">
+      {cells.map((c) => (
+        <div class="flex-1 px-6 py-5 min-w-0">
+          <dt class="font-mono-num text-xs tracking-[0.14em] uppercase text-green-800">{c.label}</dt>
+          <dd class="mt-1 font-semibold text-[15px] leading-snug break-words">{c.value}</dd>
+          <dd class="mt-0.5 text-sm text-stone-500">{c.sub}</dd>
+        </div>
+      ))}
+    </dl>
+    <div class="flex flex-col sm:flex-row gap-3 border-t border-green-800/15 px-6 py-4">
+      <a href={business.mapsUrl} target="_blank" rel="noopener" class="flex-1 text-center border border-stone-300 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-green-800 hover:text-green-800 active:scale-[0.97] transition">Rute ke lokasi</a>
+      <a href={waHref} target="_blank" rel="noopener" class="flex-1 text-center bg-green-800 text-green-50 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:-translate-y-0.5 active:scale-[0.97] transition">Chat WA reservasi</a>
+    </div>
+  </div>
+</section>
