@@ -1,17 +1,21 @@
 ---
 import { business } from '../data/business';
-interface Props { title: string; description: string; canonicalUrl: string; image?: string; schemaType?: string; }
-const { title, description, canonicalUrl, image = '/default-og.jpg', schemaType = 'LocalBusiness' } = Astro.props;
+interface Props { title: string; description: string; canonicalUrl: string; image?: string; }
+const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',
-  '@type': schemaType,
+  '@type': 'Restaurant',
   name: business.name,
   url: canonicalUrl,
   image: ogImage,
   description: description,
+  servesCuisine: ['Indonesian', 'Western', 'Breakfast'],
+  priceRange: 'Rp25000-Rp75000',
   address: { '@type': 'PostalAddress', streetAddress: business.address, addressLocality: business.city, addressCountry: 'ID' },
-  openingHours: business.hours,
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '07:00', closes: '22:00' },
+  ],
   aggregateRating: { '@type': 'AggregateRating', ratingValue: String(business.rating), reviewCount: String(business.reviewCount) },
 };
 if (business.phone) jsonLd.telephone = business.phoneDisplay;
@@ -35,4 +39,10 @@ if (business.phone) jsonLd.telephone = business.phoneDisplay;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&display=swap"
+  rel="stylesheet"
+/>
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

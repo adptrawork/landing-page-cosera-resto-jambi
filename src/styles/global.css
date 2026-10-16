@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,17 +6,19 @@
 
 :root {
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --cosera: #166534;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
-  background: #f9fafb;
-  color: #09090b;
+  font-family: 'Avenir Next', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  background: #f5f4ef;
+  color: #292524;
   -webkit-font-smoothing: antialiased;
 }
 
+.font-editorial { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; }
 .font-mono-num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
 .reveal { animation: rise 0.7s var(--ease-premium) both; }
@@ -25,7 +27,53 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Newspaper double rule */
+.rule-double { border-top: 1px solid rgba(22, 101, 52, 0.4); box-shadow: 0 3px 0 -2px #f5f4ef, 0 4px 0 -1px rgba(22, 101, 52, 0.4); }
+
+.dropcap::first-letter {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.85;
+  padding-right: 0.12em;
+  color: #166534;
+}
+
+/* Curtain reveal: overlay slides away (transform only) when .in is added */
+.curtain { position: relative; overflow: hidden; }
+.curtain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #166534;
+  transform-origin: top;
+  transition: transform 0.9s var(--ease-premium);
+}
+.curtain.in::after { transform: scaleY(0); }
+
+/* Testimonial scramble-on-hover: flicker with steps() */
+.t:hover .q { animation: scram 0.45s steps(5); }
+@keyframes scram {
+  0% { opacity: 0.2; transform: translateX(-3px); }
+  25% { opacity: 0.6; transform: translateX(2px); }
+  50% { opacity: 0.35; transform: translateX(-1px); }
+  75% { opacity: 0.8; transform: translateX(1px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+.t .glyphs {
+  display: inline-block;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  transition: opacity 0.3s, max-width 0.5s var(--ease-premium);
+}
+.t:hover .glyphs { opacity: 1; max-width: 12ch; }
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { animation: none; }
+  .reveal, .t:hover .q { animation: none; }
+  .curtain::after { transition: none; }
   html { scroll-behavior: auto; }
 }
