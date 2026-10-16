@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, notes } from '../data/business';
+---
+<BaseLayout title={`Kontak & reservasi — ${business.name}`} description="Reservasi meja CO.SERA Jambi: Jl. Sumantri Brojonegoro 119, buka 07.00–22.00, WA 0822-7807-1017, Instagram @cosera.id." canonicalPath="/kontak" image="/images/cosera-kopsus.jpg">
+  <section class="max-w-7xl mx-auto px-4 pt-12 w-full">
+    <p class="text-sm font-medium text-amber-700">Kontak</p>
+    <h1 class="mt-2 text-4xl md:text-5xl tracking-tighter leading-none font-bold max-w-[20ch]">Reservasi meja tanpa antre</h1>
+  </section>
+  <section class="max-w-7xl mx-auto px-4 py-10 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div class="md:col-span-5 reveal">
+        <div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
+          <h2 class="font-semibold text-lg tracking-tight">Alamat</h2>
+          <p class="mt-2 text-base text-gray-600">{business.address}</p>
+          <h2 class="mt-8 font-semibold text-lg tracking-tight">Jam buka</h2>
+          <p class="mt-2 text-base text-gray-600">{business.hours}</p>
+          <p class="mt-6 font-mono-num font-semibold">{business.phoneDisplay}</p>
+          <p class="mt-1 text-xs text-zinc-500">{business.phoneNote}</p>
+          <div class="mt-4 flex flex-wrap gap-3 text-sm">
+            <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4">Instagram — {business.instagramLabel}</a>
+            <a href={business.gofood} target="_blank" rel="noopener" class="underline underline-offset-4">GoFood — pesan antar</a>
+          </div>
+          {notes.map((n) => (<p class="mt-4 text-sm text-zinc-500 border-l-2 border-amber-700 pl-3">{n}</p>))}
+        </div>
+      </div>
+      <div class="md:col-span-7 reveal">
+        <form id="resv" class="bg-zinc-950 text-white rounded-[2.5rem] p-8 md:p-10">
+          <h2 class="font-semibold text-lg tracking-tight">Form reservasi → WhatsApp</h2>
+          <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <label class="flex flex-col gap-1.5">Nama<input required name="nama" placeholder="Nama kamu" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+            <label class="flex flex-col gap-1.5">Jumlah tamu<input required name="pax" type="number" min="1" value="2" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+            <label class="flex flex-col gap-1.5">Tanggal<input required name="tanggal" type="date" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+            <label class="flex flex-col gap-1.5">Jam<input required name="jam" type="time" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+          </div>
+          <p id="resv-err" class="hidden mt-3 text-sm text-red-300">Lengkapi semua kolom dan pilih tanggal hari ini atau sesudahnya.</p>
+          <button type="submit" class="mt-6 bg-white text-zinc-950 px-7 py-3.5 rounded-full text-sm font-medium">Kirim reservasi via WA</button>
+        </form>
+        <script>
+          const form = document.getElementById('resv') as HTMLFormElement | null;
+          form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fd = new FormData(form);
+            const tgl = String(fd.get('tanggal') || '');
+            const today = new Date().toISOString().slice(0, 10);
+            const err = document.getElementById('resv-err');
+            if (!fd.get('nama') || !fd.get('pax') || !tgl || !fd.get('jam') || tgl < today) {
+              err?.classList.remove('hidden');
+              return;
+            }
+            err?.classList.add('hidden');
+            const msg = `Halo Cosera Resto, saya mau reservasi meja. Nama: ${fd.get('nama')}, ${fd.get('pax')} orang, tanggal ${tgl} jam ${fd.get('jam')}. Apakah tersedia?`;
+            window.open(`https://wa.me/6282278071017?text=${encodeURIComponent(msg)}`, '_blank');
+          });
+        </script>
+        <div class="mt-6 rounded-[2.5rem] overflow-hidden border border-slate-200/50 bg-zinc-100 h-[320px]">
+          <iframe title={`Peta ${business.name}`} src={business.mapsEmbed} loading="lazy" class="w-full h-full"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

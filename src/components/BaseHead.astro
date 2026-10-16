@@ -1,12 +1,20 @@
 ---
-interface Props {
-  title: string;
-  description: string;
-  canonicalUrl: string;
-  image?: string;
-}
-const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
+import { business } from '../data/business';
+interface Props { title: string; description: string; canonicalUrl: string; image?: string; schemaType?: string; }
+const { title, description, canonicalUrl, image = '/default-og.jpg', schemaType = 'LocalBusiness' } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  name: business.name,
+  url: canonicalUrl,
+  image: ogImage,
+  description: description,
+  address: { '@type': 'PostalAddress', streetAddress: business.address, addressLocality: business.city, addressCountry: 'ID' },
+  openingHours: business.hours,
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: String(business.rating), reviewCount: String(business.reviewCount) },
+};
+if (business.phone) jsonLd.telephone = business.phoneDisplay;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -27,15 +35,4 @@ const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImage} />
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  name: "Cosera Resto",
-  url: "https://coseraresto-jambi.pages.dev",
-  image: ogImage,
-  description: description,
-  address: { "@type": "PostalAddress", addressLocality: "Kota Jambi", addressRegion: "Jambi", addressCountry: "ID" },
-  telephone: "+62-812-3456-7890",
-  openingHours: "Mo-Sa 09:00-21:00",
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.6", reviewCount: "120" }
-})} />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
