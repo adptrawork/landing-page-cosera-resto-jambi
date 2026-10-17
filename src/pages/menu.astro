@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import DishCard from '../components/DishCard.astro';
 import { business, menuGroups, waLink } from '../data/business';
 const imgFile: Record<string, { f: string; w: number; h: number }> = {
-  steak: { f: 'cosera-steak.jpg', w: 1000, h: 667 },
-  soto: { f: 'cosera-soto.jpg', w: 1000, h: 750 },
-  carbonara: { f: 'cosera-carbonara.jpg', w: 1000, h: 562 },
-  nasgor: { f: 'cosera-nasgor.jpg', w: 1000, h: 689 },
-  kopsus: { f: 'cosera-kopsus.jpg', w: 1000, h: 1301 },
-  matcha: { f: 'cosera-matcha.jpg', w: 1000, h: 1000 },
+  steak: { f: 'cosera-steak.webp', w: 1000, h: 667 },
+  soto: { f: 'cosera-soto.webp', w: 1000, h: 750 },
+  carbonara: { f: 'cosera-carbonara.webp', w: 1000, h: 562 },
+  nasgor: { f: 'cosera-nasgor.webp', w: 1000, h: 689 },
+  kopsus: { f: 'cosera-kopsus.webp', w: 1000, h: 1301 },
+  matcha: { f: 'cosera-matcha.webp', w: 1000, h: 1000 },
 };
 const total = menuGroups.reduce((a, g) => a + g.items.length, 0);
 const menuLd = {
@@ -19,7 +19,7 @@ const menuLd = {
   })),
 };
 ---
-<BaseLayout title="E-Menu CO.SERA Jambi — Steak, Soto & Carbonara" description="E-menu CO.SERA Jambi: tenderloin steak Rp149,5rb, soto ayam Rp45,5rb, carbonara Rp71,5rb terverifikasi GoFood. Pesan tiap item via WA, dine-in bisa berbeda." canonicalPath="/menu" image="/images/cosera-soto.jpg">
+<BaseLayout title="E-Menu CO.SERA Jambi — Steak, Soto & Carbonara" description="E-menu CO.SERA Jambi: tenderloin steak Rp149,5rb, soto ayam Rp45,5rb, carbonara Rp71,5rb terverifikasi GoFood. Pesan tiap item via WA, dine-in bisa berbeda." canonicalPath="/menu" image="/images/cosera-soto.webp">
   <!-- Ref: Awwwards GEM fullscreen menu + Themetags menu highlight visual -->
   <section class="max-w-6xl mx-auto px-4 pt-12 md:pt-16 w-full">
     <p class="font-mono-num text-xs tracking-[0.18em] uppercase text-green-800">E-Menu &bull; {total} menu</p>

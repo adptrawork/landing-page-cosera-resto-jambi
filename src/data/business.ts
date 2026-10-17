@@ -21,7 +21,7 @@ export const business = {
   title: 'Cosera Resto Jambi — Resto & Coffee Sipin Jelutung',
   description: 'CO.SERA resto & coffee di Jl. Sumantri Brojonegoro Jambi, buka 07.00–22.00 tiap hari. Tenderloin steak, soto ayam, carbonara — reservasi 0822-7807-1017.',
   canonicalPath: '/',
-  ogImage: '/images/cosera-steak.jpg',
+  ogImage: '/images/cosera-steak.webp',
 };
 
 export const navLinks = [
