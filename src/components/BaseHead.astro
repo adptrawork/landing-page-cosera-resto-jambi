@@ -1,7 +1,7 @@
 ---
 import { business } from '../data/business';
 interface Props { title: string; description: string; canonicalUrl: string; image?: string; }
-const { title, description, canonicalUrl, image = '/default-og.jpg' } = Astro.props;
+const { title, description, canonicalUrl, image = business.ogImage } = Astro.props;
 const ogImage = new URL(image, Astro.site ?? Astro.url).toString();
 const jsonLd: Record<string, unknown> = {
   '@context': 'https://schema.org',

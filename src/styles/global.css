@@ -20,6 +20,12 @@ body {
 /* PERF: angka pakai monospace sistem — tanpa webfont tambahan */
 .font-mono-num { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
 
+/* A11Y: focus selalu terlihat (WCAG 2.4.7) — hijau tua di area terang */
+:focus-visible { outline: 3px solid #14532d; outline-offset: 2px; }
+/* A11Y: fokus terang di area hijau gelap (CTA, form, kartu promo) */
+.bg-green-800 :focus-visible,
+.bg-green-800:focus-visible { outline-color: #f0fdf4; }
+
 .reveal { animation: rise 0.7s var(--ease-premium) both; }
 @keyframes rise {
   from { opacity: 0; transform: translateY(18px); }
@@ -50,4 +56,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reveal, .skel-block { animation: none; }
   html { scroll-behavior: auto; }
+  .dish:hover .dish-img { transform: none; }
+  /* Netralkan semua transisi/animasi CSS (hover, rotasi FAQ, skel) */
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

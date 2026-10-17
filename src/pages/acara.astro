@@ -16,7 +16,7 @@ const grup = `https://wa.me/${business.phone}?text=${encodeURIComponent('Halo Co
       <div class="md:col-span-5 reveal min-w-0">
         <!-- PERF: dimensi lokal terverifikasi (1000x689) + decoding async -->
         <img src="/images/cosera-nasgor.webp" alt="Nasi goreng kampung dengan telur dan kerupuk" width="1000" height="689" decoding="async" loading="lazy" class="w-full aspect-video object-cover rounded-2xl border border-green-800/15" />
-        <p class="mt-2 text-xs text-stone-400">Ilustrasi menu sejenis &mdash; ganti foto asli</p>
+        <p class="mt-2 text-xs text-stone-600">Ilustrasi menu sejenis &mdash; ganti foto asli</p>
       </div>
     </div>
   </section>
@@ -28,7 +28,7 @@ const grup = `https://wa.me/${business.phone}?text=${encodeURIComponent('Halo Co
           <p class="font-mono-num text-sm text-green-800">{String(i + 1).padStart(2, '0')}</p>
           <h2 class="font-editorial mt-1 text-2xl font-bold leading-snug">{e.name}</h2>
           <p class="mt-1 text-base text-stone-600">{e.desc}</p>
-          <div class="mt-4 pt-4 border-t border-green-800/10 flex items-center justify-between gap-3 mt-auto">
+          <div class="pt-4 mt-auto border-t border-green-800/10 flex items-center justify-between gap-3">
             <p class="font-mono-num font-semibold">{e.price}</p>
             <a href={cta(e.name)} target="_blank" rel="noopener" class="border border-green-800 text-green-800 px-5 py-2.5 min-h-[48px] inline-flex items-center rounded-full text-sm font-semibold hover:bg-green-800 hover:text-green-50 active:scale-[0.97] transition">Tanya paket</a>
           </div>

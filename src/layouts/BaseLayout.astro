@@ -15,6 +15,8 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
   <BaseHead title={title} description={description} canonicalUrl={canonicalUrl} image={image} />
 </head>
 <body class="antialiased">
+  <!-- A11Y: skip link — hanya muncul saat fokus keyboard -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-green-800 focus:text-green-50 focus:px-4 focus:py-3 focus:rounded-lg focus:font-semibold">Lompat ke konten utama</a>
   <!-- Ref: Plerdy 2025 — info lokasi di ATAS (topbar): alamat + jam + WA -->
   <div class="bg-green-800 text-green-50 font-mono-num text-xs">
     <p class="max-w-6xl mx-auto px-4 py-2 truncate">Jl. Sumantri Brojonegoro No.119, Sipin &bull; Buka 07.00–22.00 &bull; WA {business.phoneDisplay}</p>
@@ -49,7 +51,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       </div>
     </nav>
   </header>
-  <main><slot /></main>
+  <main id="main" tabindex="-1"><slot /></main>
   <!-- Ref: Plerdy 2025 — info lokasi di BAWAH (footer): alamat + jam + kontak -->
   <footer class="mt-20 border-t border-green-800/20 bg-[#ecebe3]">
     <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -71,7 +73,7 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
           <a href={business.gofood} target="_blank" rel="noopener" class="underline underline-offset-4">GoFood &mdash; pesan antar</a>
           <a href={business.mapsUrl} target="_blank" rel="noopener" class="underline underline-offset-4">Google Maps &mdash; rute ke lokasi</a>
         </div>
-        <p class="mt-6 text-xs text-stone-400">&copy; 2026 {business.name} &mdash; {business.city}.</p>
+        <p class="mt-6 text-xs text-stone-600">&copy; 2026 {business.name} &mdash; {business.city}.</p>
       </div>
     </div>
   </footer>

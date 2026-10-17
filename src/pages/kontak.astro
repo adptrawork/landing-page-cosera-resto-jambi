@@ -28,12 +28,12 @@ const faqLd = {
           <h2 class="font-editorial mt-8 text-2xl font-bold">Jam buka</h2>
           <p class="mt-2 text-base text-stone-600">{business.hours}</p>
           <p class="mt-6 font-mono-num font-semibold text-green-800">{business.phoneDisplay}</p>
-          <p class="mt-1 text-xs text-stone-500">{business.phoneNote}</p>
+          <p class="mt-1 text-xs text-stone-600">{business.phoneNote}</p>
           <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4 decoration-green-800/50 min-h-[48px] inline-flex items-center">Instagram &mdash; {business.instagramLabel}</a>
             <a href={business.gofood} target="_blank" rel="noopener" class="underline underline-offset-4 decoration-green-800/50 min-h-[48px] inline-flex items-center">GoFood &mdash; pesan antar</a>
           </div>
-          {notes.map((n) => (<p class="mt-4 text-sm text-stone-500 border-l-2 border-green-800 pl-3">{n}</p>))}
+          {notes.map((n) => (<p class="mt-4 text-sm text-stone-600 border-l-2 border-green-800 pl-3">{n}</p>))}
         </div>
         <div class="mt-6">
           <h2 class="font-editorial text-2xl font-bold">Tanya jawab reservasi</h2>
@@ -47,27 +47,27 @@ const faqLd = {
           <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
             <div>
               <label for="nama" class="font-semibold">Nama</label>
-              <input id="nama" name="nama" required placeholder="Nama kamu" autocomplete="name" class="mt-1 w-full rounded-2xl px-4 py-3 text-stone-800 min-h-[48px]" />
-              <p class="mt-1 text-xs text-green-200/80">Wajib diisi — nama pemesan meja.</p>
-              <p data-err="nama" class="hidden mt-1 text-sm text-red-200 font-medium">Isi nama dulu ya.</p>
+              <input id="nama" name="nama" required placeholder="Nama kamu" autocomplete="name" aria-describedby="nama-help" class="mt-1 w-full rounded-2xl bg-white px-4 py-3 text-stone-800 min-h-[48px]" />
+              <p id="nama-help" class="mt-1 text-xs text-green-200">Wajib diisi — nama pemesan meja.</p>
+              <p data-err="nama" role="alert" class="hidden mt-1 text-sm text-red-200 font-medium">Isi nama dulu ya.</p>
             </div>
             <div>
               <label for="pax" class="font-semibold">Jumlah tamu</label>
-              <input id="pax" name="pax" type="number" min="1" max="200" value="2" required inputmode="numeric" class="mt-1 w-full rounded-2xl px-4 py-3 text-stone-800 min-h-[48px]" />
-              <p class="mt-1 text-xs text-green-200/80">Grup arisan/rapat disarankan H-1.</p>
-              <p data-err="pax" class="hidden mt-1 text-sm text-red-200 font-medium">Jumlah minimal 1 orang.</p>
+              <input id="pax" name="pax" type="number" min="1" max="200" value="2" required inputmode="numeric" aria-describedby="pax-help" class="mt-1 w-full rounded-2xl bg-white px-4 py-3 text-stone-800 min-h-[48px]" />
+              <p id="pax-help" class="mt-1 text-xs text-green-200">Grup arisan/rapat disarankan H-1.</p>
+              <p data-err="pax" role="alert" class="hidden mt-1 text-sm text-red-200 font-medium">Jumlah minimal 1 orang.</p>
             </div>
             <div>
               <label for="tgl" class="font-semibold">Tanggal</label>
-              <input id="tgl" name="tgl" type="date" required class="mt-1 w-full rounded-2xl px-4 py-3 text-stone-800 min-h-[48px]" />
-              <p class="mt-1 text-xs text-green-200/80">Minimal hari ini.</p>
-              <p data-err="tgl" class="hidden mt-1 text-sm text-red-200 font-medium">Pilih tanggal hari ini atau sesudahnya.</p>
+              <input id="tgl" name="tgl" type="date" required aria-describedby="tgl-help" class="mt-1 w-full rounded-2xl bg-white px-4 py-3 text-stone-800 min-h-[48px]" />
+              <p id="tgl-help" class="mt-1 text-xs text-green-200">Minimal hari ini.</p>
+              <p data-err="tgl" role="alert" class="hidden mt-1 text-sm text-red-200 font-medium">Pilih tanggal hari ini atau sesudahnya.</p>
             </div>
             <div>
               <label for="jam" class="font-semibold">Jam</label>
-              <input id="jam" name="jam" type="time" required class="mt-1 w-full rounded-2xl px-4 py-3 text-stone-800 min-h-[48px]" />
-              <p class="mt-1 text-xs text-green-200/80">Dapur menyala 07.00–22.00.</p>
-              <p data-err="jam" class="hidden mt-1 text-sm text-red-200 font-medium">Pilih jam kedatangan.</p>
+              <input id="jam" name="jam" type="time" required aria-describedby="jam-help" class="mt-1 w-full rounded-2xl bg-white px-4 py-3 text-stone-800 min-h-[48px]" />
+              <p id="jam-help" class="mt-1 text-xs text-green-200">Dapur menyala 07.00–22.00.</p>
+              <p data-err="jam" role="alert" class="hidden mt-1 text-sm text-red-200 font-medium">Pilih jam kedatangan.</p>
             </div>
           </div>
           <button type="submit" class="mt-6 bg-green-50 text-green-800 px-7 py-3.5 min-h-[48px] rounded-full text-sm font-bold active:scale-[0.97] transition">Kirim reservasi via WA</button>

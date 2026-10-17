@@ -34,6 +34,8 @@ const menuLd = {
         </div>
       ))}
     </div>
+    <!-- A11Y/SEO: tanpa JS konten menu tetap tampil (noscript CSS-only) -->
+    <noscript><style>#menu-skel{display:none !important}#menu-real{display:block !important}</style></noscript>
     <div id="menu-real" class="hidden">
       {menuGroups.map((g) => (
         <div class="mt-12">
@@ -50,7 +52,7 @@ const menuLd = {
       ))}
       <div class="mt-8 flex flex-col sm:flex-row gap-3 pb-4">
         <a href={waLink('Halo Cosera Resto, saya mau tanya menu lengkap hari ini.')} target="_blank" rel="noopener" class="flex-1 text-center bg-green-800 text-green-50 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold">Tanya menu via WA</a>
-        <a href={business.gofood} target="_blank" rel="noopener" class="flex-1 text-center border border-stone-300 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-green-800 hover:text-green-800 transition">Pesan via GoFood</a>
+        <a href={business.gofood} target="_blank" rel="noopener" class="flex-1 text-center border border-stone-500 px-6 py-3 min-h-[48px] inline-flex items-center justify-center rounded-full text-sm font-semibold hover:border-green-800 hover:text-green-800 transition">Pesan via GoFood</a>
       </div>
     </div>
   </section>
